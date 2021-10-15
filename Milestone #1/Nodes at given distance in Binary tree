@@ -1,0 +1,105 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+     unordered_map<TreeNode*,TreeNode*> parent(TreeNode*root,TreeNode* t)
+ {
+      unordered_map<TreeNode*,TreeNode*>m;
+      
+      queue<TreeNode*>q;
+      
+      q.push(root);
+      while(!q.empty())
+      {
+          int n=q.size();
+          
+          for(int i=1;i<=n;i++)
+          {
+              TreeNode* a=q.front();
+              
+              q.pop();
+              
+             if(a->left)
+            {
+                m[a->left]=a;
+                q.push(a->left);
+                
+            }
+            
+            if(a->right)
+            {
+                m[a->right]=a;
+                q.push(a->right);
+                
+            }
+          }
+      }
+      return m;
+     
+ }
+    vector<int> distanceK(TreeNode* root, TreeNode* t, int k) 
+    {
+        
+        vector<int>ans;
+            unordered_map<TreeNode*,TreeNode*>m= parent(root,t);
+            queue<TreeNode*>q;
+            unordered_map<TreeNode*,bool>v;
+            q.push(t);
+            v[t]=true;
+            int l=0;
+            
+            while(!q.empty())
+            {
+                int n=q.size();
+                if(l==k)
+                    break;
+                l++;
+                
+                for(int i=0;i<n;i++)
+                {
+                    TreeNode *b=q.front();
+                    q.pop();
+                    if(b->left && !v[b->left])
+                    {
+                        q.push(b->left);
+                        v[b->left]=true;
+                    }
+                    
+                     if(b->right && !v[b->right])
+                    {
+                        q.push(b->right);
+                        v[b->right]=true;
+                    }
+                    
+                    if( m[b] && !v[m[b]])
+                    {
+                        q.push(m[b]);
+                        v[m[b]]=true;
+                    }
+                    
+                    
+                }
+            }
+            
+            while(!q.empty())
+            {
+                TreeNode*c=q.front();
+                q.pop();
+                ans.push_back(c->val);
+                
+                
+            }
+        
+        return ans;
+        
+    
+        
+    }
+};
