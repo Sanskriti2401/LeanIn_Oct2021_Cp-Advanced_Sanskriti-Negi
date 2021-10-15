@@ -1,0 +1,57 @@
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void dfs(vector<int>adj[],int i,vector<int>&v)
+{
+	v[i]=1;
+
+	for(auto x:adj[i])
+	{
+		if(v[x]==0)
+			dfs(adj,x,v);
+	}
+
+}
+int connected(vector<int>adj[],int n)
+{
+	vector<int>v(n+1,0);
+	int ans=0;
+
+	for(int i=1;i<=n;i++)
+	{
+		if(v[i]==0)
+		{
+				dfs(adj,i,v);
+				ans++;
+
+		}
+		
+
+	}
+	return ans;
+}
+
+int main() 
+{
+	int n,v,i;
+	cin>>n>>v;
+	vector<int>adj[n+1];
+
+	for(i=0;i<v;i++)
+	{
+		int a,b;
+		cin>>a>>b;
+		adj[a].push_back(b);
+		adj[b].push_back(a);
+
+	}
+
+	int ans=connected(adj,n);
+	cout<<ans;
+	return 0;
+
+	
+}
+
