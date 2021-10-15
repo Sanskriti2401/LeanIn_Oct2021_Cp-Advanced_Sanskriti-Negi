@@ -1,0 +1,49 @@
+class Solution
+{
+    public:
+    	vector<int>bfs(int n, vector<int> adj[],int v[],int i)
+    	{
+    	   vector<int>ans;
+    	   queue<int>q;
+    	    q.push(i);
+    	    v[i]=1;
+    	    
+    	    while(!q.empty())
+    	    {
+    	        int temp=q.front();
+    	        q.pop();
+    	         ans.push_back(temp);
+    	       
+    	        
+    	        for(auto x:adj[temp])
+    	        {
+    	            if(!v[x])
+    	            {
+    	                v[x]=1;
+    	                
+    	                q.push(x);
+    	            }
+    	        }
+    	    }
+    	    
+    	    return ans;
+    	}
+    
+    
+    //Function to return Breadth First Traversal of given graph.
+	vector<int>bfsOfGraph(int n, vector<int> adj[])
+	{
+	    int v[10000],i;
+	    
+	    for(i=0;i<n;i++)
+	         v[i]=0;
+	   vector<int>ans;
+	  
+	   ans=bfs(n,adj,v,0);
+	           
+	   
+	   return ans;
+	  
+	   
+	}
+};
