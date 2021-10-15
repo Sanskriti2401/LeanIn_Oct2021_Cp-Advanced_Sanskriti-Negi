@@ -1,0 +1,34 @@
+class Solution {
+public:
+bool a=true;
+    void dfs(int i,vector<int>adj[],vector<int>&color)
+    {
+        for(auto j:adj[i])
+        {
+            if(!color[j])
+            {
+            color[j]=-color[i];
+            dfs(j,adj,color);
+            }
+            else if(color[j]==color[i])
+            {
+            a=false;
+        }
+    }
+}
+    bool isBipartite(int V, vector<int>adj[]){
+        // Code here
+         vector<int>color(V,0);
+    for(int i=0;i<V;i++)
+    {
+        if(!color[i])
+        {
+            color[i]=1;
+            dfs(i,adj,color);
+        }
+    }
+    return a;
+   }
+
+
+};
