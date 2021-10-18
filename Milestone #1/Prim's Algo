@@ -1,0 +1,48 @@
+class Solution
+{
+	public:
+	//Function to find sum of weights of edges of the Minimum Spanning Tree.
+    int spanningTree(int n, vector<vector<int>> adj[])
+    {
+        int ans=0,i,j,mini,u;
+        vector<int>mst(n,0);
+        vector<int>dist(n,INT_MAX);
+        vector<int>p(n,-1);
+        
+        dist[0]=0;
+        for(i=0;i<n;i++)
+        {
+            mini=INT_MAX;
+            
+            for(j=0;j<n;j++)
+            {
+                if(mini>dist[j] && mst[j]==0)
+                {
+                     mini=dist[j];
+                     u=j;
+                     
+                    
+                }
+                   
+            }
+            ans+=mini;
+            
+            mst[u]=1;
+            for(int k=0;k<adj[u].size();k++)
+            {
+                int v=adj[u][k][0];
+                int weight=adj[u][k][1];
+                if(mst[v]==0 && dist[v]>weight)
+                {
+                    p[v]=u;
+                    dist[v]=weight;
+                    
+                }
+            }
+        }
+        
+        
+        return ans;
+        
+    }
+};
