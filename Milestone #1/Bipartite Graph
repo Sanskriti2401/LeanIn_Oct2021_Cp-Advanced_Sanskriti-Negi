@@ -1,4 +1,4 @@
-
+//DFS
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -73,3 +73,43 @@ int main(){
 	}
 	return 0;
 } 
+
+//BFS
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+class Solution {
+public:
+
+bool check(vector<int>adj[],vector<int>color,int i)
+{
+    
+    queue<int>q;
+    q.push(i);
+    color[i]=1;
+    
+    while(!q.empty())
+    {
+        int a=q.front();
+        q.pop();
+        
+        for(auto x:adj[a])
+        {
+            if(color[x]==-1)
+            {
+                color[x]=1-color[a];
+                q.push(x);
+            }
+            else
+            {
+                if(color[x]==color[a])
+                    return false;
+            }
+        }
+    }
+    
+    
+    return true;
+};
