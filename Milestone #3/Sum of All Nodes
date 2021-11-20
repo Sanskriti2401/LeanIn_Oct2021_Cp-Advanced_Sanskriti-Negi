@@ -1,0 +1,89 @@
+//2.Write a program to return the sum of all nodes present in a generic tree using recursion.
+#include<iostream>
+#include<vector>
+#include<bits/stdc++.h>
+
+using namespace std;
+template<typename T>
+class Tree{
+	public:
+		T data;
+		vector<Tree<T>*>child;
+		
+		Tree(T data)
+		{
+			this->data=data;
+			
+		}
+		
+};
+
+Tree<int>*input()
+{
+	int val;
+	cout<<"Enter root data= ";
+	cin>>val;
+	Tree<int>*root=new Tree<int>(val);
+	queue<Tree<int>*>q;
+	
+	q.push(root);
+	
+	while(!q.empty())
+	{
+		Tree<int>*temp=q.front();
+		q.pop()	;
+		int n;
+		cout<<"Enter number of children of "<<temp->data<<" = ";
+		cin>>n;	
+		
+		for(int i=1;i<=n;i++)
+		{
+			int v;
+			cout<<"Enter data of "<<i<<"th child of "<<temp->data<<" = ";
+			cin>>v;
+			Tree<int>*t=new Tree<int>(v);
+			temp->child.push_back(t);
+			q.push(t);
+			
+			
+		}
+	}
+	return root;		
+	
+}
+
+int sum(Tree<int>*root)
+{
+	int ans=root->data;
+	for(int i=0;i<root->child.size();i++)
+		ans+=sum(root->child[i]);
+		
+	return ans;
+	
+}
+int main()
+{
+	Tree<int>*root=input();
+	cout<<"Sum of all nodes of tree= "<<sum(root);
+	return 0;
+}
+
+/*
+Enter root data= 5
+Enter number of children of 5 = 3
+Enter data of 1th child of 5 = 4
+Enter data of 2th child of 5 = 8
+Enter data of 3th child of 5 = 9
+Enter number of children of 4 = 0
+Enter number of children of 8 = 2
+Enter data of 1th child of 8 = 1
+Enter data of 2th child of 8 = 2
+Enter number of children of 9 = 1
+Enter data of 1th child of 9 = 1
+Enter number of children of 1 = 0
+Enter number of children of 2 = 0
+Enter number of children of 1 = 0
+Sum of all nodes of tree= 30
+
+
+*/
